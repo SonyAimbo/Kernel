@@ -1,0 +1,7 @@
+В схеме опечатка, указан 29 PIN, на самом деле используется 129 PIN
+
+При включеном звуке
+GPIO[129]: Mode: 0, Direction: 1, DirIN: 1, DirOUT: 1, Pull Enable: 1, PU/PD: 0, Inversion: 0
+
+При выключеном звуке
+GPIO[129]: Mode: 0, Direction: 1, DirIN: 0, DirOUT: 0, Pull Enable: 1, PU/PD: 0, Inversion: 0
