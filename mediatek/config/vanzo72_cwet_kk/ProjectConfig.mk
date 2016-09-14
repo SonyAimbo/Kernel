@@ -758,7 +758,7 @@ MTK_GEMINI_3SIM_SUPPORT=no
 MTK_GEMINI_4SIM_SUPPORT=no
 
 # Add MTK_GEMINI_SMART_3G_SWITCH feature.
-MTK_GEMINI_SMART_3G_SWITCH=1
+MTK_GEMINI_SMART_3G_SWITCH=0
 
 # To identify which GPS chip be used on current platform.
 MTK_GPS_CHIP=MTK_GPS_MT6572
@@ -800,7 +800,7 @@ MTK_IMS_SUPPORT=no
 MTK_INCALL_HANDSFREE_DMNR=no
 
 # Incall normal mode DMNR support.
-MTK_INCALL_NORMAL_DMNR=yes
+MTK_INCALL_NORMAL_DMNR=no
 
 # Support build modem database file into system image under the path: "system/etc/mddb".
 MTK_INCLUDE_MODEM_DB_IN_IMAGE=yes
