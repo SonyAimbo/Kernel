@@ -38,19 +38,19 @@ CUSTOM_HAL_BLUETOOTH=bluetooth
 
 # User space camera driver:Camera related config, tuning setting and info. Assign build load path alps\mediatek\custom\common\hal\camera\camera
 CUSTOM_HAL_CAMERA=camera
-CUSTOM_HAL_CAM_CAL=#dummy_eeprom
+CUSTOM_HAL_CAM_CAL=dummy_eeprom
 
 # 1. This value is used to control MT6620 patch path 2. mt6620 should be used for when MTK_COMBO_CHIP is set to MT6620E3 or later version.
 CUSTOM_HAL_COMBO=mt6572_82
 
 # User space driver : Sensor module might have calibration data such as lens shading. You can adopt it according to EEPROM part number. Now, it's only s24cs64a_eeprom
-CUSTOM_HAL_EEPROM=#dummy_eeprom
+CUSTOM_HAL_EEPROM=dummy_eeprom
 
 # User space cameara flashlight driver.You can use this driver to choose cameara flashlight type.
 CUSTOM_HAL_FLASHLIGHT=dummy_flashlight
 
 # User space image sensor driver. Define  project used all image sensors. The value is combination of CUSTOM_HAL_MAIN_IMGSENSOR, CUSTOM_HAL_MAIN_BACKUP_IMGSENSOR, CUSTOM_HAL_SUB_IMGSENSOR, and CUSTOM_HAL_SUB_BACKUP_IMGSENSOR
-CUSTOM_HAL_IMGSENSOR=#s5k4ecgx_mipi_yuv s5k8aayx_yuv
+CUSTOM_HAL_IMGSENSOR=ov5645_mipi_yuv sp0a28_mipi_yuv bf3905_mipi_yuv
 
 # = CUSTOM_HAL_MAIN_LENS +CUSTOM_HAL_MAIN_BACKUP_LENS + CUSTOM_HAL_SUB_LENS + CUSTOM_HAL_SUB_BACKUP_LENS
 CUSTOM_HAL_LENS=dummy #sensordrive dummy_lens
@@ -61,7 +61,7 @@ CUSTOM_HAL_MAIN_BACKUP_IMGSENSOR=
 CUSTOM_HAL_MAIN_BACKUP_LENS=
 
 # User space image sensor  driver: Main camera (rear camera) used sensor related tuning, setting and calibration information.Value is used main sensor name.
-CUSTOM_HAL_MAIN_IMGSENSOR=#s5k4ecgx_mipi_yuv
+CUSTOM_HAL_MAIN_IMGSENSOR=ov5645_mipi_yuv
 
 # lens driver config for main camera
 CUSTOM_HAL_MAIN_LENS=dummy #sensordrive
@@ -77,7 +77,7 @@ CUSTOM_HAL_SUB_BACKUP_IMGSENSOR=
 CUSTOM_HAL_SUB_BACKUP_LENS=
 
 # User space driver: Sub camera (front camera )used sensor related tuning, setting and calibration information. Value is used sub sensor name.
-CUSTOM_HAL_SUB_IMGSENSOR=s5k8aayx_yuv
+CUSTOM_HAL_SUB_IMGSENSOR=sp0a28_mipi_yuv bf3905_mipi_yuv
 
 # lens driver config for video telephony camera
 CUSTOM_HAL_SUB_LENS=dummy #dummy_lens
@@ -96,7 +96,7 @@ CUSTOM_KERNEL_BATTERY=battery
 
 # Kernel space image sensor driver: Camera sensor power control. Assign build load path alps\mediatek\custom\common\kernel\camera\camera
 CUSTOM_KERNEL_CAMERA=camera
-CUSTOM_KERNEL_CAM_CAL=#dummy_eeprom
+CUSTOM_KERNEL_CAM_CAL=dummy_eeprom
 
 # It define customer kernel src location
 CUSTOM_KERNEL_CORE=src
@@ -105,7 +105,7 @@ CUSTOM_KERNEL_CORE=src
 CUSTOM_KERNEL_DCT=dct
 
 # Kernel space driver : Sensor module might have calibration data such as lens shading. You can adopt it according to EEPROM part number. Now, it's only s24cs64a_eeprom
-CUSTOM_KERNEL_EEPROM=#dummy_eeprom
+CUSTOM_KERNEL_EEPROM=dummy_eeprom
 
 # Kernel space cameara flashlight driver. You can use this driver to choose cameara flashlight type.
 CUSTOM_KERNEL_FLASHLIGHT=dummy_flashlight
@@ -117,7 +117,7 @@ CUSTOM_KERNEL_GYROSCOPE=
 CUSTOM_KERNEL_HEADSET=accdet
 
 # Kernel space image sensor driver. Define  project used all image sensors .The value is combination of CUSTOM_KERNEL_MAIN_IMGSENSOR, CUSTOM_KERNEL_MAIN_BACKUP_IMGSENSOR, CUSTOM_KERNEL_SUB_IMGSENSOR, and CUSTOM_KERNEL_SUB_BACKUP_IMGSENSOR
-CUSTOM_KERNEL_IMGSENSOR=s5k4ecgx_mipi_yuv s5k8aayx_yuv
+CUSTOM_KERNEL_IMGSENSOR=ov5645_mipi_yuv sp0a28_mipi_yuv bf3905_mipi_yuv
 
 # key pad driver to report key event
 CUSTOM_KERNEL_KPD=kpd
@@ -140,7 +140,7 @@ CUSTOM_KERNEL_MAIN_BACKUP_IMGSENSOR=
 CUSTOM_KERNEL_MAIN_BACKUP_LENS=
 
 # Kernel space image sensor driver:Main camera (rear camera) used sensor driver.Value is used main sensor name.
-CUSTOM_KERNEL_MAIN_IMGSENSOR=s5k4ecgx_mipi_yuv
+CUSTOM_KERNEL_MAIN_IMGSENSOR=ov5645_mipi_yuv
 
 # lens driver config for main camera
 CUSTOM_KERNEL_MAIN_LENS=dummy #sensordrive
@@ -157,7 +157,7 @@ CUSTOM_KERNEL_SUB_BACKUP_IMGSENSOR=
 CUSTOM_KERNEL_SUB_BACKUP_LENS=
 
 # Kernel space image sensor driver:Sub camera (front camera) used sensor driver.Value is used sub sensor name.
-CUSTOM_KERNEL_SUB_IMGSENSOR=s5k8aayx_yuv
+CUSTOM_KERNEL_SUB_IMGSENSOR=sp0a28_mipi_yuv bf3905_mipi_yuv
 
 # lens driver config for video telephony camera
 CUSTOM_KERNEL_SUB_LENS=dummy #dummy_lens

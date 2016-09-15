@@ -20,7 +20,6 @@
 
 //FIXME, should defined in DCT tool 
 //
-/*
 #ifndef GPIO_CAMERA_LDO_EN_PIN 
 #define GPIO_CAMERA_LDO_EN_PIN GPIO108
 #endif 
@@ -73,7 +72,7 @@
 
 #define A60373_WRITE_ID (0xC0)
 #define A60373_READ_ID (0xC1)
-*/
+
 
 
 #endif 
