@@ -202,6 +202,7 @@
 #define GC2035_SENSOR_ID			0x2035
 #define GC0329_SENSOR_ID			0x00C0
 #define GC0330_SENSOR_ID			0xC1
+#define BF3905_MIPI_SENSOR_ID                   0x3905
 
 /* 
 ******************************************************************
@@ -287,7 +288,8 @@
 #define SENSOR_DRVNAME_IMX220_MIPI_RAW   	"imx220mipiraw"
 #define SENSOR_DRVNAME_GC0313MIPI_YUV      	"gc0313mipiyuv"
 #define SENSOR_DRVNAME_OV16825_MIPI_RAW   	"ov16825mipiraw"
-
+#define SENSOR_DRVNAME_SP0A28_MIPI_YUV      	"sp0a28mipiyuv"
+#define SENSOR_DRVNAME_BF3905_MIPI_YUV     	"bf3905mipiyuv"
 /*******************************************************************************
 *
 ********************************************************************************/
