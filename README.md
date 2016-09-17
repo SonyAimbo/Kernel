@@ -4,10 +4,13 @@ ________________________________________________________________________________
 ___________________________________________________________________________________________________________
 
 Дебажный вариант kernel собирать командой
-./mk vanzo72_cwet_kk n k
+
+```./mk vanzo72_cwet_kk n k```
 
 Релизный вариант kernel собирать командой
-./mk -o=TARGET_BUILD_VARIANT=user vanzo72_cwet_kk new kernel
+
+```./mk -o=TARGET_BUILD_VARIANT=user vanzo72_cwet_kk new kernel```
 
 Вариант kernel для рекавери собирать командой
-./mk -o=TARGET_BUILD_VARIANT=recovery vanzo72_cwet_kk new kernel
+
+```./mk -o=TARGET_BUILD_VARIANT=recovery vanzo72_cwet_kk new kernel```
