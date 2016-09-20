@@ -1,109 +1,124 @@
-# config.mk
-#
-# Product-specific compile-time definitions.
-#
+
+# Board
+TARGET_BOARD_PLATFORM := mt6572
 TARGET_CPU_ABI := armeabi-v7a
 TARGET_CPU_ABI2 := armeabi
+TARGET_CPU_SMP := true
+TARGET_ARCH := arm
+ARCH_ARM_HAVE_NEON := true
+TARGET_NO_BOOTLOADER := true
+TARGET_ARCH_VARIANT := armv7-a-neon
+TARGET_ARCH_VARIANT_CPU := cortex-a7
+TARGET_CPU_VARIANT:= cortex-a7
+TARGET_CPU_MEMCPY_OPT_DISABLE := true
 
-# eMMC support
-ifeq ($(MTK_EMMC_SUPPORT),yes)
+# Bootloader
+TARGET_BOOTLOADER_BOARD_NAME := mt6572
+
 TARGET_USERIMAGES_USE_EXT4:=true
 TARGET_USERIMAGES_SPARSE_EXT_DISABLED := false
-endif
 
-TARGET_CPU_SMP := true
-USE_CAMERA_STUB := true
+# Assert
+TARGET_OTA_ASSERT_DEVICE := mt6582,IQ456_Era_Life_2,IQ456
 
-TARGET_NO_FACTORYIMAGE := true
+# MTK HARDWARE
+BOARD_HAS_MTK_HARDWARE := true
+MTK_HARDWARE := true
+BOARD_USES_LEGACY_MTK_AV_BLOB := true
+COMMON_GLOBAL_CFLAGS += -DMTK_HARDWARE -DADD_LEGACY_ACQUIRE_BUFFER_SYMBOL
+COMMON_GLOBAL_CPPFLAGS += -DMTK_HARDWARE
+BLOCK_BASED_OTA := false
 
-# for migrate build system
-# temporarily open this two options
-HAVE_HTC_AUDIO_DRIVER := true
-#BOARD_USES_GENERIC_AUDIO := true 
-BOARD_USES_MTK_AUDIO := true
+# RIL
+BOARD_RIL_CLASS := ../../../device/mediatek/mt6582/ril/
 
-BOARD_EGL_CFG := $(BOARD_CONFIG_DIR)/egl.cfg
+BOARD_CONNECTIVITY_VENDOR := MediaTek
+BOARD_CONNECTIVITY_MODULE := conn_soc
 
-BOARD_MTK_LIBSENSORS_NAME :=
-BOARD_MTK_LIB_SENSOR :=
-
-# MTK, Baochu Wang, 20101130, Add A-GPS {
-ifeq ($(MTK_AGPS_APP), yes)
-   BOARD_AGPS_SUPL_LIBRARIES := true
-else
-   BOARD_AGPS_SUPL_LIBRARIES := false
-endif
-# MTK, Baochu Wang, 20101130, Add A-GPS }
-
-ifeq ($(MTK_GPS_SUPPORT), yes)
-  BOARD_GPS_LIBRARIES := true
-else
-  BOARD_GPS_LIBRARIES := false
-endif
-
-# MTK, Infinity, 20090720, Add WiFi {
-ifeq ($(MTK_WLAN_SUPPORT), yes)
-BOARD_WPA_SUPPLICANT_DRIVER := WEXT
-BOARD_P2P_SUPPLICANT_DRIVER := NL80211
-HAVE_CUSTOM_WIFI_DRIVER_2 := true
-HAVE_INTERNAL_WPA_SUPPLICANT_CONF := true
-HAVE_CUSTOM_WIFI_HAL := mediatek
-WPA_SUPPLICANT_VERSION := VER_0_6_X
-P2P_SUPPLICANT_VERSION := VER_0_8_X
-endif
-# MTK, Infinity, 20090720, Add WiFi }
+# Flags
+TARGET_GLOBAL_CFLAGS   += -mfpu=neon -mfloat-abi=softfp
+TARGET_GLOBAL_CPPFLAGS += -mfpu=neon -mfloat-abi=softfp
 
 TARGET_KMODULES := true
 
-TARGET_ARCH_VARIANT := armv7-a-neon
+COMMON_GLOBAL_CFLAGS += -DDISABLE_HW_ID_MATCH_CHECK
+TARGET_RUNNING_WITHOUT_SYNC_FRAMEWORK := true
 
-ifeq ($(strip $(MTK_NAND_PAGE_SIZE)), 4K)
-  BOARD_NAND_PAGE_SIZE := 4096 -s 128
-else
-  BOARD_NAND_PAGE_SIZE := 2048 -s 64   # default 2K
-endif
+# Recovery
+TARGET_RECOVERY_FSTAB := $(LOCAL_PATH)/rootdir/recovery.fstab
 
-ifeq ($(strip $(MTK_NAND_UBIFS_SUPPORT)),yes)
-TARGET_USERIMAGES_USE_UBIFS := true
-endif
+TARGET_USE_CUSTOM_LUN_FILE_PATH := "/sys/devices/virtual/android_usb/android0/f_mass_storage/lun%d/file"
 
-WITH_DEXPREOPT := false
+# TWRP
+BOARD_HAS_NO_SELECT_BUTTON := true
+# TARGET_RECOVERY_FSTAB := $(LOCAL_PATH)/rootdir/twrp.fstab
+TARGET_RECOVERY_FSTAB := $(LOCAL_PATH)/rootdir/recovery.fstab
+TARGET_PREBUILT_RECOVERY_KERNEL := $(LOCAL_PATH)/kernel
+TARGET_USE_CUSTOM_LUN_FILE_PATH := /sys/devices/platform/mt_usb/musb-hdrc.0/gadget/lun%d/file
+RECOVERY_GRAPHICS_USE_LINELENGTH := true
+TW_THEME := portrait_hdpi
+TW_DEFAULT_LANGUAGE := en
+TW_DEFAULT_EXTERNAL_STORAGE := true
+TW_BRIGHTNESS_PATH := /sys/class/leds/lcd-backlight/brightness
+TW_MAX_BRIGHTNESS := 255
+TW_CUSTOM_CPU_TEMP_PATH := /sys/devices/virtual/thermal/thermal_zone1/temp
 
-ifeq ($(strip $(FLAVOR)),nand_mlc)
-# for UBIFS
-TARGET_USERIMAGES_USE_UBIFS := true
+# Bluetooth
+BOARD_HAVE_BLUETOOTH := true
+BOARD_HAVE_BLUETOOTH_MTK := true
+BOARD_BLUETOOTH_DOES_NOT_USE_RFKILL := true
+BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := $(LOCAL_PATH)/bluetooth
 
-ifeq ($(TARGET_USERIMAGES_USE_UBIFS),true)
-# for KF94G16Q4X-AEB (512MB)
-#-m, --min-io-size=<bytes>
-BOARD_UBIFS_MIN_IO_SIZE:=4096
-#-p, --peb-size=<bytes>  size of the physical eraseblock
-BOARD_FLASH_BLOCK_SIZE:=262144
-#-s, --sub-page-size=<bytes>  minimum input/output unit used for UBI headers,
-#e.g. sub-page size in case of NAND flash (equivalent to the minimum input/output unit size by default)
-BOARD_UBIFS_SUB_PAGE_SIZE:=2048
-#-O, --vid-hdr-offset=<num>   offset if the VID header from start of the physical eraseblock
-#(default is the next minimum I/O unit or sub-page after the EC header)
-BOARD_UBIFS_VID_HDR_OFFSET:=${BOARD_UBIFS_MIN_IO_SIZE}
-#-e, --leb-size=SIZE      logical erase block size
-#BOARD_FLASH_BLOCK_SIZE*1024-BOARD_UBIFS_MIN_IO_SIZE*2
-BOARD_UBIFS_LOGICAL_ERASEBLOCK_SIZE:=253952 
-#-c, --max-leb-cnt=COUNT  maximum logical erase block count
-BOARD_UBIFS_USERDATA_MAX_LOGICAL_ERASEBLOCK_COUNT:=250
-BOARD_UBIFS_SYSTEM_MAX_LOGICAL_ERASEBLOCK_COUNT:=1800
-BOARD_UBIFS_SECRO_MAX_LOGICAL_ERASEBLOCK_COUNT:=22
-#for $(PRODUCT_OUT)/ubi_userdata.ini and $(PRODUCT_OUT)/ubi_system.ini  and $(PRODUCT_OUT)/ubi_secro.ini
-BOARD_USERDATAIMAGE_PARTITION_SIZE:=67551232
-BOARD_SYSTEMIMAGE_PARTITION_SIZE:=323788800
-BOARD_SECROIMAGE_PARTITION_SIZE:=4825088
+# Sensors
+TARGET_NO_SENSOR_PERMISSION_CHECK := true
 
-#seeting for UBINIZE and MKUBIFS parameter
-UBINIZE_FLAGS:=-m $(BOARD_UBIFS_MIN_IO_SIZE) -p $(BOARD_FLASH_BLOCK_SIZE) -s ${BOARD_UBIFS_SUB_PAGE_SIZE} -O $(BOARD_UBIFS_VID_HDR_OFFSET) -v
-MKUBIFS_SYSTEM_FLAGS:=-m $(BOARD_UBIFS_MIN_IO_SIZE) -e ${BOARD_UBIFS_LOGICAL_ERASEBLOCK_SIZE} -c ${BOARD_UBIFS_SYSTEM_MAX_LOGICAL_ERASEBLOCK_COUNT} -v
-MKUBIFS_USERDATA_FLAGS:=-m $(BOARD_UBIFS_MIN_IO_SIZE) -e ${BOARD_UBIFS_LOGICAL_ERASEBLOCK_SIZE} -c ${BOARD_UBIFS_USERDATA_MAX_LOGICAL_ERASEBLOCK_COUNT} -v
-MKUBIFS_SECRO_FLAGS:=-m $(BOARD_UBIFS_MIN_IO_SIZE) -e ${BOARD_UBIFS_LOGICAL_ERASEBLOCK_SIZE} -c ${BOARD_UBIFS_SECRO_MAX_LOGICAL_ERASEBLOCK_COUNT} -v
-endif #ifeq ($(TARGET_USERIMAGES_USE_UBIFS),true)
-endif
+# Offline charging
+BOARD_CHARGING_MODE_BOOTING_LPM := /sys/class/BOOT/BOOT/boot/boot_mode
+BOARD_CHARGER_ENABLE_SUSPEND := true
+BOARD_CHARGER_DISABLE_INIT_BLANK := true
 
-# include all config files
-include $(BOARD_CONFIG_DIR)/configs/*.mk
+# EGL settings
+BOARD_EGL_CFG := $(LOCAL_PATH)/configs/egl.cfg
+USE_OPENGL_RENDERER := true
+BOARD_EGL_WORKAROUND_BUG_10194508 := true
+BOARD_EGL_NEEDS_HANDLE_VALUE := true
+BOARD_EGL_NEEDS_FNW := true
+TARGET_REQUIRES_SYNCHRONOUS_SETSURFACE := true
+
+# WIFI
+WPA_SUPPLICANT_VERSION := VER_0_8_X
+BOARD_HOSTAPD_DRIVER := NL80211
+BOARD_HOSTAPD_PRIVATE_LIB := lib_driver_cmd_mt66xx
+BOARD_WPA_SUPPLICANT_DRIVER := NL80211
+BOARD_WPA_SUPPLICANT_PRIVATE_LIB := lib_driver_cmd_mt66xx
+WIFI_DRIVER_FW_PATH_PARAM:="/dev/wmtWifi"
+WIFI_DRIVER_FW_PATH_STA:=STA
+WIFI_DRIVER_FW_PATH_AP:=AP
+WIFI_DRIVER_FW_PATH_P2P:=P2P
+
+# GPS
+TARGET_SPECIFIC_HEADER_PATH := $(LOCAL_PATH)/include
+
+# Disable memcpy opt (for audio libraries)
+TARGET_CPU_MEMCPY_OPT_DISABLE := true
+
+# Enable Minikin text layout engine (will be the default soon)
+USE_MINIKIN := true
+
+# Selinux
+BOARD_SEPOLICY_DIRS += $(LOCAL_PATH)/sepolicy
+
+# Sepolicy hack for old kernel, mt6582 version is 26.
+POLICYVERS := 26
+
+# Hack for build
+$(shell mkdir -p $(OUT)/obj/KERNEL_OBJ/usr)
+
+# FMRadio
+MTK_FM_SUPPORT := yes
+MTK_FM_RX_SUPPORT := yes
+MTK_FM_CHIP := MT6627_FM
+FM_LIB_BUILD_MT6620 := yes
+FM_LIB_BUILD_MT6627 := yes
+FM_LIB_BUILD_MT6628 := yes
+FM_LIB_BUILD_MT6630 := yes
